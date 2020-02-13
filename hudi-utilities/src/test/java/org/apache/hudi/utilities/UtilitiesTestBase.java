@@ -194,6 +194,13 @@ public class UtilitiesTestBase {
       }
     }
 
+    public static TypedProperties setupSchemaOnDFS() throws IOException {
+      UtilitiesTestBase.Helpers.copyToDFS(Helpers.class.getClassLoader(),"delta-streamer-config/source.avsc", dfs, dfsBasePath + "/source.avsc");
+      TypedProperties props = new TypedProperties();
+      props.setProperty("hoodie.deltastreamer.schemaprovider.source.schema.file", dfsBasePath + "/source.avsc");
+      return props;
+    }
+
     public static TypedProperties setupSchemaOnDFS(String filePath) throws IOException {
       UtilitiesTestBase.Helpers.copyToDFS(Helpers.class.getClassLoader(), filePath, dfs, dfsBasePath + "/" + filePath);
       TypedProperties props = new TypedProperties();
